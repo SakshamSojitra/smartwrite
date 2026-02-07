@@ -1,0 +1,5 @@
+# SmartWrite - Dependencies
+# Python 3.8+ recommended
+
+Flask==3.0.0
+requests==2.31.0

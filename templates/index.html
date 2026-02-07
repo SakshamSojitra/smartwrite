@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartWrite - Intelligent Grammar & Spell Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>/* Fallback - ensure content is visible even before CSS loads */
+        body { background: #f5f7fa; color: #1a1a2e; font-family: system-ui, sans-serif; min-height: 100vh; margin: 0; }
+        .app-container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">SmartWrite</h1>
+            <p class="tagline">Intelligent Grammar & Spell Checker</p>
+        </header>
+
+        <!-- Stats Bar: Word Count & Readability -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Words</span>
+                <span id="wordCount" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Characters</span>
+                <span id="charCount" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Readability</span>
+                <span id="readabilityScore" class="stat-value">—</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Errors Found</span>
+                <span id="errorCount" class="stat-value">0</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Text Input Section -->
+            <section class="input-section">
+                <div class="textarea-wrapper">
+                    <!-- Editable div for highlighting (mirrors textarea content) -->
+                    <div id="highlightLayer" class="highlight-layer" aria-hidden="true"></div>
+                    <textarea 
+                        id="textInput" 
+                        class="text-input" 
+                        placeholder="Type or paste your text here... We will check spelling and grammar."
+                        rows="12"
+                        spellcheck="false"
+                    ></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="checkBtn" class="btn btn-primary">
+                        <span class="btn-icon">✓</span>
+                        Check Grammar
+                    </button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                        <span class="btn-icon">✕</span>
+                        Clear
+                    </button>
+                </div>
+            </section>
+
+            <!-- Suggestions Panel -->
+            <aside class="suggestions-panel" id="suggestionsPanel">
+                <h3 class="panel-title">Corrections & Suggestions</h3>
+                <p class="panel-hint">Click "Check Grammar" to analyze your text. Hover over highlighted errors for quick suggestions.</p>
+                <div id="suggestionsList" class="suggestions-list">
+                    <p class="suggestions-empty">Click "Check Grammar" to analyze your text.</p>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by LanguageTool API • English • Free & Open</p>
+        </footer>
+    </div>
+
+    <!-- Tooltip for hover suggestions -->
+    <div id="hoverTooltip" class="hover-tooltip" aria-hidden="true"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

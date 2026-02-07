@@ -1,0 +1,407 @@
+/* ============================================
+   SmartWrite - Intelligent Grammar & Spell Checker
+   Main Stylesheet - Clean, Modern UI
+   ============================================ */
+
+/* CSS Variables - Light theme for better visibility */
+:root {
+    --color-bg: #f5f7fa;
+    --color-surface: #ffffff;
+    --color-surface-hover: #eef1f5;
+    --color-text: #1a1a2e;
+    --color-text-muted: #5a5a7a;
+    --color-primary: #1d9bf0;
+    --color-primary-hover: #1a8cd8;
+    --color-spelling: #e63946;
+    --color-grammar: #6c5ce7;
+    --color-success: #00b894;
+    --color-border: #e0e4e8;
+    --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* App Container - centers everything */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Header ===== */
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-grammar));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+/* ===== Stats Bar ===== */
+.stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 2px;
+}
+
+/* ===== Main Content - Two Column Layout ===== */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    flex: 1;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Input Section ===== */
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Textarea wrapper - enables overlay highlighting */
+.textarea-wrapper {
+    position: relative;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+}
+
+/* Highlight layer - sits on top of textarea for hover tooltips, shows underlines */
+.highlight-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+    pointer-events: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font: inherit;
+    line-height: inherit;
+    color: transparent;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* Spans inside highlight layer - receive hover for tooltip */
+.highlight-layer span {
+    pointer-events: auto;
+    cursor: help;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    border-radius: 2px;
+}
+
+.highlight-layer .highlight-spelling {
+    text-decoration-color: var(--color-spelling);
+    text-decoration-thickness: 2px;
+}
+
+.highlight-layer .highlight-grammar {
+    text-decoration-color: var(--color-grammar);
+    text-decoration-thickness: 2px;
+}
+
+/* Textarea - behind highlight layer for typing */
+.text-input {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    resize: vertical;
+    outline: none;
+    z-index: 1;
+}
+
+/* Ensure textarea receives focus - clicks on non-span area go through */
+.textarea-wrapper:focus-within .text-input {
+    outline: none;
+}
+
+.text-input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
+/* ===== Buttons ===== */
+.button-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+/* ===== Suggestions Panel ===== */
+.suggestions-panel {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--color-border);
+    padding: 20px;
+    height: fit-content;
+    position: sticky;
+    top: 24px;
+}
+
+.panel-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-text);
+}
+
+.panel-hint {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 16px;
+}
+
+.suggestions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual suggestion card */
+.suggestion-card {
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--color-border);
+    background: var(--color-bg);
+    transition: border-color 0.2s;
+}
+
+.suggestion-card.spelling {
+    border-left-color: var(--color-spelling);
+}
+
+.suggestion-card.grammar {
+    border-left-color: var(--color-grammar);
+}
+
+.suggestion-card .error-text {
+    font-weight: 500;
+    color: var(--color-text);
+    margin-bottom: 4px;
+}
+
+.suggestion-card .error-message {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+}
+
+.suggestion-card .suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.suggestion-card .suggestion-chip {
+    padding: 4px 10px;
+    font-size: 0.85rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.suggestion-card .suggestion-chip:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+/* Empty state */
+.suggestions-empty {
+    text-align: center;
+    padding: 24px;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.suggestions-empty.success {
+    color: var(--color-success);
+}
+
+/* ===== Hover Tooltip ===== */
+.hover-tooltip {
+    position: fixed;
+    padding: 10px 14px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+    max-width: 280px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.hover-tooltip.visible {
+    opacity: 1;
+}
+
+/* ===== Footer ===== */
+.footer {
+    text-align: center;
+    padding: 24px 0;
+    margin-top: auto;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* ===== Loading Spinner ===== */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .app-container {
+        padding: 16px;
+    }
+    
+    .stats-bar {
+        padding: 12px;
+    }
+    
+    .stat-item {
+        min-width: 70px;
+    }
+}
