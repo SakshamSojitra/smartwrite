@@ -10,7 +10,8 @@ import Tooltip from "./components/Tooltip";
 import { countWords, countChars, getReadabilityScore } from "./utils/textUtils";
 import "./App.css";
 
-const API_URL = "/check";
+// Backend API URL (dev server runs on port 5000)
+const API_URL = "http://localhost:5000/check";
 
 export default function App() {
   const [text, setText] = useState("");
@@ -37,9 +38,24 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: trimmed }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Check failed");
-      setErrors(data.matches ?? []);
+
+      // Try to parse JSON only when body is present and content-type is JSON
+      let data = null;
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        // fallback: attempt to read text (may be empty)
+        const txt = await res.text();
+        try {
+          data = txt ? JSON.parse(txt) : null;
+        } catch (e) {
+          data = null;
+        }
+      }
+
+      if (!res.ok) throw new Error((data && data.error) || res.statusText || "Check failed");
+      setErrors((data && data.matches) || []);
     } catch (err) {
       alert("Could not check grammar. " + (err.message ?? "Please try again."));
       setErrors([]);

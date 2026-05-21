@@ -68,6 +68,11 @@ app.post("/check", async (req, res) => {
   }
 });
 
+// Simple root route / health check
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "SmartWrite API - POST /check to run grammar checks" });
+});
+
 app.listen(PORT, () => {
   console.log(`SmartWrite API running at http://127.0.0.1:${PORT}`);
 });
